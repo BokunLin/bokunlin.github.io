@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Bokun Lin">
 <meta property="og:description" content="这篇拖了很久了，想想还是趁着清明把债给补上把。  前言之前遇到个需求， 要把前端所有图片变成CDN链接。但是还没有接触过 webpack 相关配置， 只能硬着头皮上了。 常用参数 entry - 程序的启动入口（多页应用的话可以配置数组） context - 上下文路径（绝对路径） output - 输出消息 path - 输出文件存放的路径 filename - 输出文件名   module">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-06T15:46:29.605Z">
+<meta property="og:updated_time" content="2019-04-06T15:56:35.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack 配置初探">
 <meta name="twitter:description" content="这篇拖了很久了，想想还是趁着清明把债给补上把。  前言之前遇到个需求， 要把前端所有图片变成CDN链接。但是还没有接触过 webpack 相关配置， 只能硬着头皮上了。 常用参数 entry - 程序的启动入口（多页应用的话可以配置数组） context - 上下文路径（绝对路径） output - 输出消息 path - 输出文件存放的路径 filename - 输出文件名   module">
@@ -344,6 +344,19 @@
           
             
             
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/04/06/webpack-配置初探/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/04/06/webpack-配置初探/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -396,17 +409,17 @@
 </ul>
 </li>
 </ul>
-<h2 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">const webpack = require(&apos;webpack&apos;)</span><br><span class="line">const path = require(&apos;path&apos;)</span><br><span class="line"></span><br><span class="line">// 代码混淆插件</span><br><span class="line">const UglifyJSPlugin = require(&apos;uglifyjs-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  // 模块处理</span><br><span class="line">  module: &#123;</span><br><span class="line">    // 处理规则规则</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      // 处理的文件夹</span><br><span class="line">      include: [path.resolve(__dirname, &apos;src&apos;)],</span><br><span class="line">      // 处理的 loader</span><br><span class="line">      loader: &apos;babel-loader&apos;,</span><br><span class="line">      // loader 的 参数</span><br><span class="line">      options: &#123;</span><br><span class="line">        plugins: [&apos;syntax-dynamic-import&apos;],</span><br><span class="line"></span><br><span class="line">        presets: [[&apos;@babel/preset-env&apos;, &#123;</span><br><span class="line">          &apos;modules&apos;: false</span><br><span class="line">        &#125;]]</span><br><span class="line">      &#125;,</span><br><span class="line">      // 匹配规则</span><br><span class="line">      test: /\.js$/</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      test: /\.(scss|css)$/,</span><br><span class="line">      // loader 的另一种写法</span><br><span class="line">      use: [&#123;</span><br><span class="line">        loader: &apos;style-loader&apos;</span><br><span class="line">        // 跟上面一样， loader 的参数配置</span><br><span class="line">        options: &#123;&#125;</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: &apos;css-loader&apos;</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: &apos;sass-loader&apos;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  // 输出设置</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: &apos;/dist&apos;,  // 输出路径</span><br><span class="line">    filename: &apos;[name].[chunkhash].js&apos; // 输出文件名</span><br><span class="line">  &#125;,</span><br><span class="line">  // 开发模式</span><br><span class="line">  mode: &apos;development&apos;,</span><br><span class="line">  plugins: [</span><br><span class="line">    // 混淆插件</span><br><span class="line">    new UglifyJSPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码混淆插件</span></span><br><span class="line"><span class="keyword">const</span> UglifyJSPlugin = <span class="built_in">require</span>(<span class="string">'uglifyjs-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 模块处理</span></span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    <span class="comment">// 处理规则规则</span></span><br><span class="line">    rules: [&#123;</span><br><span class="line">      <span class="comment">// 处理的文件夹</span></span><br><span class="line">      include: [path.resolve(__dirname, <span class="string">'src'</span>)],</span><br><span class="line">      <span class="comment">// 处理的 loader</span></span><br><span class="line">      loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">      <span class="comment">// loader 的参数</span></span><br><span class="line">      options: &#123;</span><br><span class="line">        plugins: [<span class="string">'syntax-dynamic-import'</span>],</span><br><span class="line"></span><br><span class="line">        presets: [[<span class="string">'@babel/preset-env'</span>, &#123;</span><br><span class="line">          <span class="string">'modules'</span>: <span class="literal">false</span></span><br><span class="line">        &#125;]]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 匹配规则</span></span><br><span class="line">      test: <span class="regexp">/\.js$/</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      test: <span class="regexp">/\.(scss|css)$/</span>,</span><br><span class="line">      <span class="comment">// loader 的另一种写法</span></span><br><span class="line">      use: [&#123;</span><br><span class="line">        loader: <span class="string">'style-loader'</span></span><br><span class="line">        <span class="comment">// 跟上面一样， loader 的参数配置</span></span><br><span class="line">        options: &#123;&#125;</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: <span class="string">'css-loader'</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: <span class="string">'sass-loader'</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 输出设置</span></span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="string">'/dist'</span>,  <span class="comment">// 输出路径</span></span><br><span class="line">    filename: <span class="string">'[name].[chunkhash].js'</span> <span class="comment">// 输出文件名</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 开发模式</span></span><br><span class="line">  mode: <span class="string">'development'</span>,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="comment">// 混淆插件</span></span><br><span class="line">    <span class="keyword">new</span> UglifyJSPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="话说回来"><a href="#话说回来" class="headerlink" title="话说回来"></a>话说回来</h2><p>简单的介绍过后，那如何去实现一个图片CDN化的操作。简单来说就两步：</p>
 <ol>
 <li>找到所有图片</li>
 <li>将图片的路径替换成 CDN 链接</li>
 </ol>
 <p>我这里用了<code>file-loader</code>去做这个处理，顺便将替换的域名提取出来，与公共的配置放到一起方便管理，代码如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">  // 匹配图片</span><br><span class="line">  test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,</span><br><span class="line">  use: [</span><br><span class="line">    &#123;</span><br><span class="line">      loader: &apos;file-loader&apos;,</span><br><span class="line">      options: &#123;</span><br><span class="line">        name: &apos;[path][name].[ext]&apos;,</span><br><span class="line">        // context 用来规定loader执行上下文</span><br><span class="line">        context: &apos;/&apos;,</span><br><span class="line">        // 将图片的输出路径做统一处理，实际上url取到的是文件存放的绝对路径</span><br><span class="line">        publicPath: url =&gt; &#123;</span><br><span class="line">          // 默认有个 public 的文件夹前缀</span><br><span class="line">          let tmpStr = path.resolve(&apos;../public&apos;);</span><br><span class="line"></span><br><span class="line">          /* windows 的路径兼容 */</span><br><span class="line">          // 兼容 Windows 将 Windows 下的 \\ 替换成 /</span><br><span class="line">          tmpStr = tmpStr.split(path.sep).join(&apos;/&apos;);</span><br><span class="line">          // 去除盘符 C: 和 最前面的 / </span><br><span class="line">          tmpStr = tmpStr.replace(/^([C-Z]:)?\//, &apos;&apos;);</span><br><span class="line">          /* 兼容结束 */</span><br><span class="line"></span><br><span class="line">          // 清除多余路径 留下图片目录</span><br><span class="line">          url = url.replace(tmpStr, &apos;&apos;);</span><br><span class="line">          // 获取 cnd 域名，这个可以根据实际环境来</span><br><span class="line">          return utils.getStaticHost(debug) + url;</span><br><span class="line">        &#125;,</span><br><span class="line">        // 是否输出文件</span><br><span class="line">        emitFile: false,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 匹配图片</span></span><br><span class="line">  test: <span class="regexp">/\.(png|jpe?g|gif|svg)(\?.*)?$/</span>,</span><br><span class="line">  use: [</span><br><span class="line">    &#123;</span><br><span class="line">      loader: <span class="string">'file-loader'</span>,</span><br><span class="line">      options: &#123;</span><br><span class="line">        name: <span class="string">'[path][name].[ext]'</span>,</span><br><span class="line">        <span class="comment">// context 用来规定loader执行上下文</span></span><br><span class="line">        context: <span class="string">'/'</span>,</span><br><span class="line">        <span class="comment">// 将图片的输出路径做统一处理，实际上url取到的是文件存放的绝对路径</span></span><br><span class="line">        publicPath: <span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="comment">// 默认有个 public 的文件夹前缀</span></span><br><span class="line">          <span class="keyword">let</span> tmpStr = path.resolve(<span class="string">'../public'</span>);</span><br><span class="line"></span><br><span class="line">          <span class="comment">/* windows 的路径兼容 */</span></span><br><span class="line">          <span class="comment">// 兼容 Windows 将 Windows 下的 \\ 替换成 /</span></span><br><span class="line">          tmpStr = tmpStr.split(path.sep).join(<span class="string">'/'</span>);</span><br><span class="line">          <span class="comment">// 去除盘符 C: 和 最前面的 / </span></span><br><span class="line">          tmpStr = tmpStr.replace(<span class="regexp">/^([C-Z]:)?\//</span>, <span class="string">''</span>);</span><br><span class="line">          <span class="comment">/* 兼容结束 */</span></span><br><span class="line"></span><br><span class="line">          <span class="comment">// 清除多余路径 留下图片目录</span></span><br><span class="line">          url = url.replace(tmpStr, <span class="string">''</span>);</span><br><span class="line">          <span class="comment">// 获取 cnd 域名，这个可以根据实际环境来</span></span><br><span class="line">          <span class="keyword">return</span> utils.getStaticHost(debug) + url;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 是否输出文件</span></span><br><span class="line">        emitFile: <span class="literal">false</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h3 id="补充一下"><a href="#补充一下" class="headerlink" title="补充一下"></a>补充一下</h3><p>想要文件被<code>loader</code>解析到需要以<code>import</code>或 <code>require</code>引入，然后以变量的方式引用。</p>
 <blockquote>
-<p>vue 的 template 会转换成 js 引用，所以不需要特殊处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 伪代码</span><br><span class="line">  &lt;template&gt;</span><br><span class="line">    &lt;img :src=&quot;img&quot;/&gt;</span><br><span class="line">    &lt;img :src=&quot;require(&apos;./1.jpg&apos;)&quot;/&gt;</span><br><span class="line">  &lt;template&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    import img from &apos;./1.jpg&apos;;  </span><br><span class="line">  &lt;script/&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>vue 的 template 会转换成 js 引用，所以不需要特殊处理<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"img"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"require('./1.jpg')"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> img <span class="keyword">from</span> <span class="string">'./1.jpg'</span>;  </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>/&gt;</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
 
       
@@ -477,6 +490,13 @@
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -738,6 +758,40 @@
 
 
   
+    <!-- LOCAL: You can save these files to your site and update links -->
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+<!-- END LOCAL -->
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'bokunlin',
+      repo: 'git@github.com:BokunLin/gitment-comments.git# MUST HAVE, The name of the repo you use to store Gitment comments',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: 'fab75732480a32210e4203b658203e4dee0b99e3',
+      
+        client_id: '01ce81bacfb25b759949'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
+  
+    renderGitment();
+  
+</script>
+
+  
 
 
   
@@ -756,6 +810,16 @@
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
 
   
 

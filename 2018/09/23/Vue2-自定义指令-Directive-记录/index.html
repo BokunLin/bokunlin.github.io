@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="前言算了，懒得写了，就这样吧。 Code 组件内写法  //template &amp;lt;div v-tap=&amp;quot;{methods: func, args: [1,2,3]}&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;  // js directives: {   tap(el, binding) {     const handle = binding.method;     const a">
+  <meta name="description" content="前言算了，懒得写了，就这样吧。 Code 组件内写法  123456789101112//template&amp;lt;div v-tap=&quot;&amp;#123;methods: func, args: [1,2,3]&amp;#125;&quot;&amp;gt;&amp;lt;/div&amp;gt;// jsdirectives: &amp;#123;  tap(el, binding) &amp;#123;    const handle = binding.">
 <meta name="keywords" content="vue,web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue2.0 自定义指令 Directive 记录">
 <meta property="og:url" content="https://bokunlin.github.io/2018/09/23/Vue2-自定义指令-Directive-记录/index.html">
 <meta property="og:site_name" content="Bokun Lin">
-<meta property="og:description" content="前言算了，懒得写了，就这样吧。 Code 组件内写法  //template &amp;lt;div v-tap=&amp;quot;{methods: func, args: [1,2,3]}&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;  // js directives: {   tap(el, binding) {     const handle = binding.method;     const a">
+<meta property="og:description" content="前言算了，懒得写了，就这样吧。 Code 组件内写法  123456789101112//template&amp;lt;div v-tap=&quot;&amp;#123;methods: func, args: [1,2,3]&amp;#125;&quot;&amp;gt;&amp;lt;/div&amp;gt;// jsdirectives: &amp;#123;  tap(el, binding) &amp;#123;    const handle = binding.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-06T15:46:59.243Z">
+<meta property="og:updated_time" content="2019-04-06T15:57:12.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue2.0 自定义指令 Directive 记录">
-<meta name="twitter:description" content="前言算了，懒得写了，就这样吧。 Code 组件内写法  //template &amp;lt;div v-tap=&amp;quot;{methods: func, args: [1,2,3]}&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;  // js directives: {   tap(el, binding) {     const handle = binding.method;     const a">
+<meta name="twitter:description" content="前言算了，懒得写了，就这样吧。 Code 组件内写法  123456789101112//template&amp;lt;div v-tap=&quot;&amp;#123;methods: func, args: [1,2,3]&amp;#125;&quot;&amp;gt;&amp;lt;/div&amp;gt;// jsdirectives: &amp;#123;  tap(el, binding) &amp;#123;    const handle = binding.">
 
 
 
@@ -344,6 +344,19 @@
           
             
             
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2018/09/23/Vue2-自定义指令-Directive-记录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/23/Vue2-自定义指令-Directive-记录/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -372,19 +385,8 @@
 <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><blockquote>
 <p>组件内写法</p>
 </blockquote>
-<pre><code>//template
-&lt;div v-tap=&quot;{methods: func, args: [1,2,3]}&quot;&gt;&lt;/div&gt;
-
-// js
-directives: {
-  tap(el, binding) {
-    const handle = binding.method;
-    const args = binding.args || [];
-    //do something
-    handle.call(el, args);
-  }
-}
-</code></pre><p>突然没啥心情写了，就这样看吧，有空再补充。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//template</span></span><br><span class="line">&lt;div v-tap=<span class="string">"&#123;methods: func, args: [1,2,3]&#125;"</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// js</span></span><br><span class="line">directives: &#123;</span><br><span class="line">  tap(el, binding) &#123;</span><br><span class="line">    <span class="keyword">const</span> handle = binding.method;</span><br><span class="line">    <span class="keyword">const</span> args = binding.args || [];</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">    handle.call(el, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>突然没啥心情写了，就这样看吧，有空再补充。</p>
 
       
     </div>
@@ -456,6 +458,13 @@ directives: {
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -717,6 +726,40 @@ directives: {
 
 
   
+    <!-- LOCAL: You can save these files to your site and update links -->
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+<!-- END LOCAL -->
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'bokunlin',
+      repo: 'git@github.com:BokunLin/gitment-comments.git# MUST HAVE, The name of the repo you use to store Gitment comments',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: 'fab75732480a32210e4203b658203e4dee0b99e3',
+      
+        client_id: '01ce81bacfb25b759949'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
+  
+    renderGitment();
+  
+</script>
+
+  
 
 
   
@@ -735,6 +778,16 @@ directives: {
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
 
   
 
