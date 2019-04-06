@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="##前言挺久之前就想弄个博客吧，由于拖延症硬是活生生拖到了毕业，趁着手头上没啥东西，抽空把博客搭出来。原本想自己写一个，后面觉得太麻烦。还是用 Hexo 好了。搭建的过程并没有一帆风顺，小小记录一番，也便后来人参考。 搭建过程前提准备 使用之前需要一些前提环境 (Windows)  NPM (一般下载 Node.js 安装，就会自动安装)   如何安装 以下命令全在命令行完成 (Win + R -">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 博客搭建记录 Windows">
+<meta property="og:url" content="https://bokunlin.github.io/2018/09/23/Hexo-博客搭建记录 windows/index.html">
+<meta property="og:site_name" content="Bokun Lin">
+<meta property="og:description" content="##前言挺久之前就想弄个博客吧，由于拖延症硬是活生生拖到了毕业，趁着手头上没啥东西，抽空把博客搭出来。原本想自己写一个，后面觉得太麻烦。还是用 Hexo 好了。搭建的过程并没有一帆风顺，小小记录一番，也便后来人参考。 搭建过程前提准备 使用之前需要一些前提环境 (Windows)  NPM (一般下载 Node.js 安装，就会自动安装)   如何安装 以下命令全在命令行完成 (Win + R -">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-04-06T08:30:42.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo 博客搭建记录 Windows">
+<meta name="twitter:description" content="##前言挺久之前就想弄个博客吧，由于拖延症硬是活生生拖到了毕业，趁着手头上没啥东西，抽空把博客搭出来。原本想自己写一个，后面觉得太麻烦。还是用 Hexo 好了。搭建的过程并没有一帆风顺，小小记录一番，也便后来人参考。 搭建过程前提准备 使用之前需要一些前提环境 (Windows)  NPM (一般下载 Node.js 安装，就会自动安装)   如何安装 以下命令全在命令行完成 (Win + R -">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://bokunlin.github.io/2018/09/23/Hexo-博客搭建记录 windows/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Hexo 博客搭建记录 Windows | Bokun Lin</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Bokun Lin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bokunlin.github.io/2018/09/23/Hexo-博客搭建记录 windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokun">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bokun Lin">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo 博客搭建记录 Windows
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-23 16:36:08" itemprop="dateCreated datePublished" datetime="2018-09-23T16:36:08+08:00">2018-09-23</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##前言<br>挺久之前就想弄个博客吧，由于拖延症硬是活生生拖到了毕业，趁着手头上没啥东西，抽空把博客搭出来。<br>原本想自己写一个，后面觉得太麻烦。还是用 Hexo 好了。<br>搭建的过程并没有一帆风顺，小小记录一番，也便后来人参考。</p>
+<h2 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h2><h3 id="前提准备"><a href="#前提准备" class="headerlink" title="前提准备"></a>前提准备</h3><blockquote>
+<p>使用之前需要一些前提环境 (Windows)</p>
+<ul>
+<li>NPM (一般下载 Node.js 安装，就会自动安装)</li>
+</ul>
+</blockquote>
+<h3 id="如何安装"><a href="#如何安装" class="headerlink" title="如何安装"></a>如何安装</h3><blockquote>
+<p>以下命令全在命令行完成 (Win + R -&gt; cmd)</p>
+<ul>
+<li><code>npm i hexo-cli -g</code></li>
+<li><code>hexo init &lt;项目名称&gt;</code></li>
+<li><code>cd &lt;项目名称&gt;</code></li>
+<li><code>npm i</code><br>安装主题</li>
+</ul>
+</blockquote>
+<p>在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">主题商店</a>挑选一个喜欢的主题，然后进入到其仓库地址下载下来，放到项目目录的<code>/themes</code>下。</p>
+<blockquote>
+<p>以我使用的 Material 为例</p>
+<ul>
+<li>从项目地址,下载项目</li>
+<li>放入<code>/themes</code>下，更名为 Material。</li>
+<li>修改<code>/_config.yml</code>文件， 找到<code>theme</code>，修改为 <code>Material(/themes下的文件夹名称)</code></li>
+<li>进入<code>/themes/material</code>，将<code>_config.template.yml</code>复制一份，重命名为<code>_config.yml</code>。</li>
+</ul>
+</blockquote>
+<h3 id="挂载-Github"><a href="#挂载-Github" class="headerlink" title="挂载 Github"></a>挂载 Github</h3><blockquote>
+<p>这里需要一个 Github 账号，请自行注册</p>
+</blockquote>
+<ul>
+<li>安装<code>git</code>插件 <code>npm install hexo-deployer-git --save</code></li>
+<li>创建一个新项目，命名为<code>&lt;username&gt;.github.io</code></li>
+<li>复制项目的 <code>ssh</code> 地址</li>
+<li><p>修改<code>/_config.yml</code>文件</p>
+<pre><code>deploy:
+  type: git
+  repo: &lt;git https 地址&gt;
+  branch: master
+</code></pre><p>进入 <a href="https://github.com" target="_blank" rel="noopener">GitHub</a> 项目地址， 选择 <code>Setting</code> 选项卡</p>
+</li>
+</ul>
+<p>向下滚动找到GitHub Pages，配置 GitHub Pages</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li><p>新建文章</p>
+<p>运行 <code>hexo new post &lt;博客名&gt;</code>, 在 <code>/source/_posts</code> 目录下会看到新建的我呢推荐</p>
+</li>
+<li><p>测试</p>
+<p>运行 <code>hexo s --debug</code>， 然后直接到 <code>localhost:4000</code> 预览项目</p>
+</li>
+<li><p>发布 </p>
+<p>运行 <code>hexo d -g</code>， 将自动发布到 GitHub, 然后就可以开始访问你的博客了。地址为<code>&lt;username&gt;.github.io</code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/23/Git SSH配置/" rel="prev" title="Git SSH 配置">
+                Git SSH 配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Bokun">
+            
+              <p class="site-author-name" itemprop="name">Bokun</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/bokunlin" title="GitHub &rarr; https://github.com/bokunlin" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:yourname@gmail.com" title="E-Mail &rarr; mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建过程"><span class="nav-number">1.</span> <span class="nav-text">搭建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提准备"><span class="nav-number">1.1.</span> <span class="nav-text">前提准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何安装"><span class="nav-number">1.2.</span> <span class="nav-text">如何安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载-Github"><span class="nav-number">1.3.</span> <span class="nav-text">挂载 Github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">1.4.</span> <span class="nav-text">命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokun</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

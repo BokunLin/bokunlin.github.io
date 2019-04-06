@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这篇拖了很久了，想想还是趁着清明把债给补上把。  前言之前遇到个需求， 要把前端所有图片变成CDN链接。但是还没有接触过 webpack 相关配置， 只能硬着头皮上了。 常用参数 entry - 程序的启动入口（多页应用的话可以配置数组） context - 上下文路径（绝对路径） output - 输出消息 path - 输出文件存放的路径 filename - 输出文件名   module">
+<meta name="keywords" content="vue,web,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack 配置初探">
+<meta property="og:url" content="https://bokunlin.github.io/2019/04/06/webpack-配置初探/index.html">
+<meta property="og:site_name" content="Bokun Lin">
+<meta property="og:description" content="这篇拖了很久了，想想还是趁着清明把债给补上把。  前言之前遇到个需求， 要把前端所有图片变成CDN链接。但是还没有接触过 webpack 相关配置， 只能硬着头皮上了。 常用参数 entry - 程序的启动入口（多页应用的话可以配置数组） context - 上下文路径（绝对路径） output - 输出消息 path - 输出文件存放的路径 filename - 输出文件名   module">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-04-06T15:46:29.605Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack 配置初探">
+<meta name="twitter:description" content="这篇拖了很久了，想想还是趁着清明把债给补上把。  前言之前遇到个需求， 要把前端所有图片变成CDN链接。但是还没有接触过 webpack 相关配置， 只能硬着头皮上了。 常用参数 entry - 程序的启动入口（多页应用的话可以配置数组） context - 上下文路径（绝对路径） output - 输出消息 path - 输出文件存放的路径 filename - 输出文件名   module">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://bokunlin.github.io/2019/04/06/webpack-配置初探/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>webpack 配置初探 | Bokun Lin</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Bokun Lin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bokunlin.github.io/2019/04/06/webpack-配置初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokun">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bokun Lin">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack 配置初探
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-06 17:01:39" itemprop="dateCreated datePublished" datetime="2019-04-06T17:01:39+08:00">2019-04-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这篇拖了很久了，想想还是趁着清明把债给补上把。</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前遇到个需求， 要把前端所有图片变成CDN链接。但是还没有接触过 webpack 相关配置， 只能硬着头皮上了。</p>
+<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><ul>
+<li>entry - 程序的启动入口（多页应用的话可以配置数组）</li>
+<li>context - 上下文路径（绝对路径）</li>
+<li>output - 输出消息<ul>
+<li>path - 输出文件存放的路径</li>
+<li>filename - 输出文件名</li>
+</ul>
+</li>
+<li>module - 对不同模块的处理<ul>
+<li>rules - 根据规则对不同的文件做处理 （ loader ）</li>
+</ul>
+</li>
+<li>plugins - 插件数组</li>
+<li>resolve - 解析<ul>
+<li>alias - 别名 （在<code>import</code>和<code>require</code>中可以使用）</li>
+</ul>
+</li>
+<li>devServer - webpack 提供的本地 server<ul>
+<li>contentBase - 启动目录</li>
+<li>compress - gzip 压缩</li>
+<li>port - 服务的端口号</li>
+</ul>
+</li>
+</ul>
+<h2 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">const webpack = require(&apos;webpack&apos;)</span><br><span class="line">const path = require(&apos;path&apos;)</span><br><span class="line"></span><br><span class="line">// 代码混淆插件</span><br><span class="line">const UglifyJSPlugin = require(&apos;uglifyjs-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  // 模块处理</span><br><span class="line">  module: &#123;</span><br><span class="line">    // 处理规则规则</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      // 处理的文件夹</span><br><span class="line">      include: [path.resolve(__dirname, &apos;src&apos;)],</span><br><span class="line">      // 处理的 loader</span><br><span class="line">      loader: &apos;babel-loader&apos;,</span><br><span class="line">      // loader 的 参数</span><br><span class="line">      options: &#123;</span><br><span class="line">        plugins: [&apos;syntax-dynamic-import&apos;],</span><br><span class="line"></span><br><span class="line">        presets: [[&apos;@babel/preset-env&apos;, &#123;</span><br><span class="line">          &apos;modules&apos;: false</span><br><span class="line">        &#125;]]</span><br><span class="line">      &#125;,</span><br><span class="line">      // 匹配规则</span><br><span class="line">      test: /\.js$/</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      test: /\.(scss|css)$/,</span><br><span class="line">      // loader 的另一种写法</span><br><span class="line">      use: [&#123;</span><br><span class="line">        loader: &apos;style-loader&apos;</span><br><span class="line">        // 跟上面一样， loader 的参数配置</span><br><span class="line">        options: &#123;&#125;</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: &apos;css-loader&apos;</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: &apos;sass-loader&apos;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  // 输出设置</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: &apos;/dist&apos;,  // 输出路径</span><br><span class="line">    filename: &apos;[name].[chunkhash].js&apos; // 输出文件名</span><br><span class="line">  &#125;,</span><br><span class="line">  // 开发模式</span><br><span class="line">  mode: &apos;development&apos;,</span><br><span class="line">  plugins: [</span><br><span class="line">    // 混淆插件</span><br><span class="line">    new UglifyJSPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="话说回来"><a href="#话说回来" class="headerlink" title="话说回来"></a>话说回来</h2><p>简单的介绍过后，那如何去实现一个图片CDN化的操作。简单来说就两步：</p>
+<ol>
+<li>找到所有图片</li>
+<li>将图片的路径替换成 CDN 链接</li>
+</ol>
+<p>我这里用了<code>file-loader</code>去做这个处理，顺便将替换的域名提取出来，与公共的配置放到一起方便管理，代码如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">  // 匹配图片</span><br><span class="line">  test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,</span><br><span class="line">  use: [</span><br><span class="line">    &#123;</span><br><span class="line">      loader: &apos;file-loader&apos;,</span><br><span class="line">      options: &#123;</span><br><span class="line">        name: &apos;[path][name].[ext]&apos;,</span><br><span class="line">        // context 用来规定loader执行上下文</span><br><span class="line">        context: &apos;/&apos;,</span><br><span class="line">        // 将图片的输出路径做统一处理，实际上url取到的是文件存放的绝对路径</span><br><span class="line">        publicPath: url =&gt; &#123;</span><br><span class="line">          // 默认有个 public 的文件夹前缀</span><br><span class="line">          let tmpStr = path.resolve(&apos;../public&apos;);</span><br><span class="line"></span><br><span class="line">          /* windows 的路径兼容 */</span><br><span class="line">          // 兼容 Windows 将 Windows 下的 \\ 替换成 /</span><br><span class="line">          tmpStr = tmpStr.split(path.sep).join(&apos;/&apos;);</span><br><span class="line">          // 去除盘符 C: 和 最前面的 / </span><br><span class="line">          tmpStr = tmpStr.replace(/^([C-Z]:)?\//, &apos;&apos;);</span><br><span class="line">          /* 兼容结束 */</span><br><span class="line"></span><br><span class="line">          // 清除多余路径 留下图片目录</span><br><span class="line">          url = url.replace(tmpStr, &apos;&apos;);</span><br><span class="line">          // 获取 cnd 域名，这个可以根据实际环境来</span><br><span class="line">          return utils.getStaticHost(debug) + url;</span><br><span class="line">        &#125;,</span><br><span class="line">        // 是否输出文件</span><br><span class="line">        emitFile: false,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="补充一下"><a href="#补充一下" class="headerlink" title="补充一下"></a>补充一下</h3><p>想要文件被<code>loader</code>解析到需要以<code>import</code>或 <code>require</code>引入，然后以变量的方式引用。</p>
+<blockquote>
+<p>vue 的 template 会转换成 js 引用，所以不需要特殊处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 伪代码</span><br><span class="line">  &lt;template&gt;</span><br><span class="line">    &lt;img :src=&quot;img&quot;/&gt;</span><br><span class="line">    &lt;img :src=&quot;require(&apos;./1.jpg&apos;)&quot;/&gt;</span><br><span class="line">  &lt;template&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    import img from &apos;./1.jpg&apos;;  </span><br><span class="line">  &lt;script/&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/23/Vue2-自定义指令-Directive-记录/" rel="next" title="Vue2.0 自定义指令 Directive 记录">
+                <i class="fa fa-chevron-left"></i> Vue2.0 自定义指令 Directive 记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Bokun">
+            
+              <p class="site-author-name" itemprop="name">Bokun</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/bokunlin" title="GitHub &rarr; https://github.com/bokunlin" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:yourname@gmail.com" title="E-Mail &rarr; mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用参数"><span class="nav-number">2.</span> <span class="nav-text">常用参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的例子"><span class="nav-number">3.</span> <span class="nav-text">简单的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#话说回来"><span class="nav-number">4.</span> <span class="nav-text">话说回来</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充一下"><span class="nav-number">4.1.</span> <span class="nav-text">补充一下</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokun</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
