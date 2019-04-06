@@ -1,7 +1,7 @@
 ---
 title: Vue2.0 自定义指令 Directive 记录
 date: 2018-09-23 19:00:13
-tags:
+tags: [vue, web]
 ---
 
 ## 前言

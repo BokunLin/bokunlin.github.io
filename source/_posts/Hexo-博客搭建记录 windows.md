@@ -1,7 +1,7 @@
 ---
 title: Hexo 博客搭建记录 Windows
 date: 2018-09-23 16:36:08
-tags:
+tags: hexo
 ---
 
 ##前言
