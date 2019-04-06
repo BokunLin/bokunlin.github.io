@@ -12,6 +12,7 @@ tags: [vue, web]
 
 > 组件内写法
 
+```javascript
     //template
     <div v-tap="{methods: func, args: [1,2,3]}"></div>
 
@@ -24,6 +25,6 @@ tags: [vue, web]
         handle.call(el, args);
       }
     }
-
+```
 
 突然没啥心情写了，就这样看吧，有空再补充。

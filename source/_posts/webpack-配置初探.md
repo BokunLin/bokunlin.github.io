@@ -26,7 +26,7 @@ tags: [webpack,vue,web]
   * port - 服务的端口号
 
 ## 简单的例子
-```
+```javascript
 const webpack = require('webpack')
 const path = require('path')
 
@@ -42,7 +42,7 @@ module.exports = {
       include: [path.resolve(__dirname, 'src')],
       // 处理的 loader
       loader: 'babel-loader',
-      // loader 的 参数
+      // loader 的参数
       options: {
         plugins: ['syntax-dynamic-import'],
 
@@ -86,7 +86,7 @@ module.exports = {
 
 我这里用了`file-loader`去做这个处理，顺便将替换的域名提取出来，与公共的配置放到一起方便管理，代码如下。
 
-```
+```javascript
 ...
 {
   // 匹配图片
@@ -126,13 +126,12 @@ module.exports = {
 ### 补充一下
 想要文件被`loader`解析到需要以`import`或 `require`引入，然后以变量的方式引用。
 > vue 的 template 会转换成 js 引用，所以不需要特殊处理
-```
-// 伪代码
-  <template>
-    <img :src="img"/>
-    <img :src="require('./1.jpg')"/>
-  <template>
-  <script>
-    import img from './1.jpg';  
-  <script/>>
+```html
+<template>
+  <img :src="img"/>
+  <img :src="require('./1.jpg')"/>
+<template>
+<script>
+  import img from './1.jpg';  
+<script/>>
 ```
