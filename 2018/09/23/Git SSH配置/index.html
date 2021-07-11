@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="以下所有 Bokun 都是电脑账户名称 需要替换成自己的电脑账户名称  1. 初始化配置信息 $ git config --global user.name &amp;quot;Bokun&amp;quot;设置用户名$ git config --global user.email &amp;quot;ninebook@hotmail.com&amp;quot;设置邮箱  2. 生成 SSH $ ssh-keygen -t r">
+  <meta name="description" content="以下所有 Bokun 都是电脑账户名称 需要替换成自己的电脑账户名称  1. 初始化配置信息 git config --global user.name &amp;quot;Bokun&amp;quot;设置用户名git config --global user.email &amp;quot;ninebook@hotmail.com&amp;quot;设置邮箱  2. 生成 SSH ssh-keygen -t rsa -C">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git SSH 配置">
 <meta property="og:url" content="https://bokunlin.github.io/2018/09/23/Git SSH配置/index.html">
 <meta property="og:site_name" content="Bokun Lin">
-<meta property="og:description" content="以下所有 Bokun 都是电脑账户名称 需要替换成自己的电脑账户名称  1. 初始化配置信息 $ git config --global user.name &amp;quot;Bokun&amp;quot;设置用户名$ git config --global user.email &amp;quot;ninebook@hotmail.com&amp;quot;设置邮箱  2. 生成 SSH $ ssh-keygen -t r">
+<meta property="og:description" content="以下所有 Bokun 都是电脑账户名称 需要替换成自己的电脑账户名称  1. 初始化配置信息 git config --global user.name &amp;quot;Bokun&amp;quot;设置用户名git config --global user.email &amp;quot;ninebook@hotmail.com&amp;quot;设置邮箱  2. 生成 SSH ssh-keygen -t rsa -C">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-06T08:50:54.657Z">
+<meta property="og:updated_time" content="2021-07-11T09:01:22.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git SSH 配置">
-<meta name="twitter:description" content="以下所有 Bokun 都是电脑账户名称 需要替换成自己的电脑账户名称  1. 初始化配置信息 $ git config --global user.name &amp;quot;Bokun&amp;quot;设置用户名$ git config --global user.email &amp;quot;ninebook@hotmail.com&amp;quot;设置邮箱  2. 生成 SSH $ ssh-keygen -t r">
+<meta name="twitter:description" content="以下所有 Bokun 都是电脑账户名称 需要替换成自己的电脑账户名称  1. 初始化配置信息 git config --global user.name &amp;quot;Bokun&amp;quot;设置用户名git config --global user.email &amp;quot;ninebook@hotmail.com&amp;quot;设置邮箱  2. 生成 SSH ssh-keygen -t rsa -C">
 
 
 
@@ -372,19 +372,27 @@
 <p>以下所有 <code>Bokun</code> 都是电脑账户名称 需要替换成自己的电脑账户名称</p>
 </blockquote>
 <h1 id="1-初始化配置信息"><a href="#1-初始化配置信息" class="headerlink" title="1. 初始化配置信息"></a>1. 初始化配置信息</h1><blockquote>
-<p><code>$ git config --global user.name &quot;Bokun&quot;</code><br>设置用户名<br><code>$ git config --global user.email &quot;ninebook@hotmail.com&quot;</code><br>设置邮箱</p>
+<p><code>git config --global user.name &quot;Bokun&quot;</code><br>设置用户名<br><code>git config --global user.email &quot;ninebook@hotmail.com&quot;</code><br>设置邮箱</p>
 </blockquote>
 <h1 id="2-生成-SSH"><a href="#2-生成-SSH" class="headerlink" title="2. 生成 SSH"></a>2. 生成 SSH</h1><blockquote>
-<p><code>$ ssh-keygen -t rsa -C &quot;ninebook@hotmail.com&quot;</code><br>会问到保存位置，账号密码类的 直接全部回车默认就可以了</p>
+<p><code>ssh-keygen -t rsa -C &quot;ninebook@hotmail.com&quot;</code><br>会问到保存位置，账号密码类的 直接全部回车默认就可以了</p>
 </blockquote>
 <blockquote>
-<p>如果已存在 会询问是否覆盖<br><code>/c/Users/Bokun/.ssh/id_rsa already exists.Overwrite(yes/no)</code></p>
+<p>如果已存在 会询问是否覆盖</p>
+<ul>
+<li><code>/c/Users/Bokun/.ssh/id_rsa already exists.Overwrite(yes/no)</code></li>
+<li><code>~/.ssh/id_rsa already exists.Overwrite(yes/no)</code></li>
+</ul>
 </blockquote>
 <ul>
 <li>通过以上步骤 ssh 就已经配置完成了</li>
 </ul>
 <h1 id="3-用记事本打开-id-rsa-pub-文件，-里面就是你的-ssh-密钥了"><a href="#3-用记事本打开-id-rsa-pub-文件，-里面就是你的-ssh-密钥了" class="headerlink" title="3. 用记事本打开 id_rsa.pub 文件， 里面就是你的 ssh 密钥了"></a>3. 用记事本打开 <code>id_rsa.pub</code> 文件， 里面就是你的 ssh 密钥了</h1><blockquote>
-<p>默认位置是在<code>C:\Users\Bokun\.ssh</code></p>
+<p>默认位置是在</p>
+<ul>
+<li><code>C:\Users\Bokun\.ssh</code></li>
+<li><code>~/.ssh</code></li>
+</ul>
 </blockquote>
 <h1 id="4-复制到相应的代码托管平台上去"><a href="#4-复制到相应的代码托管平台上去" class="headerlink" title="4. 复制到相应的代码托管平台上去"></a>4. 复制到相应的代码托管平台上去</h1>
       
@@ -577,7 +585,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
