@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bokunlin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="这个方案依赖 Apple iMessage 来实现，看之前确保你的手机是 iPhone 电脑是 Mac。  背景如今各大手机都能实现短信验证码来了，输入法自动识别，然后填充到文本框里。 在使用 Mac 进行办公的时候常常也需要收个验证码，这时候需要打开手机解锁然后背下 6 位数的验证码，在电脑上一个个输入。 以前还不觉得麻烦，还以为大家都这样，直到有一天在用 Safari 到时候发了条验证码，突">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac 实现自动复制手机验证码">
+<meta property="og:url" content="https://bokunlin.github.io/2021/07/11/Mac-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%A4%8D%E5%88%B6%E6%89%8B%E6%9C%BA%E9%AA%8C%E8%AF%81%E7%A0%81/index.html">
+<meta property="og:site_name" content="Bokun Lin">
+<meta property="og:description" content="这个方案依赖 Apple iMessage 来实现，看之前确保你的手机是 iPhone 电脑是 Mac。  背景如今各大手机都能实现短信验证码来了，输入法自动识别，然后填充到文本框里。 在使用 Mac 进行办公的时候常常也需要收个验证码，这时候需要打开手机解锁然后背下 6 位数的验证码，在电脑上一个个输入。 以前还不觉得麻烦，还以为大家都这样，直到有一天在用 Safari 到时候发了条验证码，突">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-11T09:40:28.000Z">
+<meta property="article:modified_time" content="2021-11-07T15:29:54.350Z">
+<meta property="article:author" content="Bokun">
+<meta property="article:tag" content="mac">
+<meta property="article:tag" content="shell">
+<meta property="article:tag" content="crontab">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://bokunlin.github.io/2021/07/11/Mac-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%A4%8D%E5%88%B6%E6%89%8B%E6%9C%BA%E9%AA%8C%E8%AF%81%E7%A0%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bokunlin.github.io/2021/07/11/Mac-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%A4%8D%E5%88%B6%E6%89%8B%E6%9C%BA%E9%AA%8C%E8%AF%81%E7%A0%81/","path":"2021/07/11/Mac-实现自动复制手机验证码/","title":"Mac 实现自动复制手机验证码"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Mac 实现自动复制手机验证码 | Bokun Lin</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Bokun Lin</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%8A%84"><span class="nav-number">2.</span> <span class="nav-text">直接抄</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F-step-%E7%A7%92%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AC%A1"><span class="nav-number"></span> <span class="nav-text">每 step 秒执行一次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E5%88%86%E9%92%9F%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AC%A1%EF%BC%8C%E4%B8%80%E6%AC%A1%E6%89%A7%E8%A1%8C-60-step-%E6%AC%A1%EF%BC%8C%E8%A7%84%E9%81%BF-crontab-%E6%9C%80%E4%BD%8E%E5%8F%AA%E8%83%BD-1-%E5%88%86%E9%92%9F%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AC%A1%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number"></span> <span class="nav-text">每分钟执行一次，一次执行 60&#x2F;step 次，规避 crontab 最低只能 1 分钟执行一次的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90%EF%BC%8C%E5%90%8E%E9%9D%A2%E6%94%B6%E5%88%B0%E7%9F%AD%E4%BF%A1%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9B%B4%E6%8E%A5-command-v-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%B2%98%E8%B4%B4%E4%BA%86%EF%BC%8C%E5%90%84%E7%A7%8D%E5%8F%82%E6%95%B0%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%B7%B1%E8%B0%83%E6%95%B4%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">大功告成，后面收到短信验证码直接 command + v 就可以粘贴了，各种参数可以自己调整。</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bokun</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bokunlin.github.io/2021/07/11/Mac-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%A4%8D%E5%88%B6%E6%89%8B%E6%9C%BA%E9%AA%8C%E8%AF%81%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bokun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bokun Lin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac 实现自动复制手机验证码
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-07-11 17:40:28" itemprop="dateCreated datePublished" datetime="2021-07-11T17:40:28+08:00">2021-07-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-11-07 23:29:54" itemprop="dateModified" datetime="2021-11-07T23:29:54+08:00">2021-11-07</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>这个方案依赖 <code>Apple iMessage</code> 来实现，看之前确保你的手机是 <code>iPhone</code> 电脑是 <code>Mac</code>。</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>如今各大手机都能实现短信验证码来了，输入法自动识别，然后填充到文本框里。</p>
+<p>在使用 <code>Mac</code> 进行办公的时候常常也需要收个验证码，这时候需要打开手机解锁然后背下 <code>6</code> 位数的验证码，在电脑上一个个输入。</p>
+<p>以前还不觉得麻烦，还以为大家都这样，直到有一天在用 <code>Safari</code> 到时候发了条验证码，突发现 <code>Safari</code> 可以自动识别 <code>iPhone</code> 收到的短信验证码，然后一键填充到文本框，简直不要太方便。</p>
+<p>然后因为这个功能我强行从 <code>Chrome</code> 切换到了 <code>Safari</code> ，但使用过程实在难受，前端调试、各大网站的适配低等等，整体性能体验不如 <code>Chrome</code> （也有可能是那些个网站不针对 <code>Safari</code> 优化），想了想还是用回 <code>Chrome</code> 吧，但切回去以后收短信又很难受了，那咋办呢。</p>
+<p>还好我成年了，可以选择全都要；随即开始找方案。</p>
+<blockquote>
+<p>其实最早的需求是自动转发短信给企业微信机器人，然后找了半天，，发现以前 <code>AppleScript</code> 可以自动转发消息，但是某个版本以后苹果删除掉了这个功能，只能另寻他路。</p>
+</blockquote>
+<p>然后就开始各种 <code>Google</code>，直到看到这个老哥的<a target="_blank" rel="noopener" href="https://www.cnblogs.com/herberts/p/13191760.html">文章</a>，就可以开始一步步照着做了，各种细节不再赘述（懒得写了，自己看自己<code>Google</code>吧。</p>
+<h2 id="直接抄"><a href="#直接抄" class="headerlink" title="直接抄"></a>直接抄</h2><p>自己也简单的写了个 <code>Shell</code>，懒得看的可以直接抄，分几个步骤。</p>
+<p>1、<code>iPhone</code> 里找到 <code>Settings</code> - <code>Messages</code> - <code>Text Message Forwarding</code> 选择上你的 Mac （需要同时登录同一个 <code>Apple ID</code>。</p>
+<p>2、创建脚本</p>
+<ul>
+<li><p>（比如路径在 <code>/Users/$&#123;Your Name&#125;/Shells/AutoCheckCode.sh</code>）</p>
+<blockquote>
+<p>脚本执行一次为 1 分钟，step 为每次执行间隔，默认 3 秒检查一次 <code>iMessage</code> 有没有收到带 验证码 的信息，并且默认复制最前面的 4-6 个数字，偷懒写的比较简单，规则后续建议自己调整。</p>
+</blockquote>
+<p>  #!/bin/bash</p>
+<p>  step=3;</p>
+<h1 id="每-step-秒执行一次"><a href="#每-step-秒执行一次" class="headerlink" title="每 step 秒执行一次"></a>每 step 秒执行一次</h1><p>  checkCode(){</p>
+<pre><code>  echo &quot;starting to check code&quot;;
+  # 路径中的 Bokun 记得改成自己电脑的名字
+  # 通过 Sqlite3 查 1 条 iMessage 最近 5 秒收到消息（iMessage 收到消息的时间可能有延迟，这里实际冗余多了 2 秒）
+  #! 注意这个时间和 step 要匹配好，不然可能每 step 秒都会查出消息，导致重复通知。
+  #! /Users/Bokun/Library/Messages/chat.db 
+  #！这个 DB 文件和目录记得给开权限，默认是不给读的。
+  result=$(sqlite3 /Users/Bokun/Library/Messages/chat.db &#39;SELECT text FROM message WHERE datetime(date/1000000000 + 978307200,&quot;unixepoch&quot;,&quot;localtime&quot;) &gt; datetime(&quot;now&quot;,&quot;localtime&quot;,&quot;-5 second&quot;) ORDER BY date DESC LIMIT 1;&#39;)
+
+  name=&quot;验证码&quot;;
+  
+  # 看下最近有没有收到消息
+  if [ ! $result ]; then
+      echo &quot;latest $step second is not receive code messsages&quot;;
+      return 
+  fi
+
+  echo &quot;result is $result&quot;;
+  echo &quot;keyword is $name&quot;;
+      
+  # 如果短信中包含验证码则取前 4-6 个数字
+  if [[ &quot;$result&quot; =~ &quot;$name&quot; ]]; then
+      code=`echo $result | grep -o &quot;[0-9]\&#123;4,6\&#125;&quot;`;
+
+      # 将获取到的数字输出到剪贴板
+      echo &quot;$code\c&quot; | pbcopy;
+
+      # 发个系统通知，展示内容，同时提醒你可以 Command + v 粘贴了。 
+      osascript -e &quot;display notification \&quot;$result\&quot; with title \&quot;短信验证码\&quot;&quot;;
+
+  fi
+</code></pre>
+<p>  }</p>
+<h1 id="每分钟执行一次，一次执行-60-step-次，规避-crontab-最低只能-1-分钟执行一次的问题"><a href="#每分钟执行一次，一次执行-60-step-次，规避-crontab-最低只能-1-分钟执行一次的问题" class="headerlink" title="每分钟执行一次，一次执行 60/step 次，规避 crontab 最低只能 1 分钟执行一次的问题"></a>每分钟执行一次，一次执行 60/step 次，规避 crontab 最低只能 1 分钟执行一次的问题</h1><p>  for (( i = 0; i &lt; 60; i=(i+step) )); do </p>
+<pre><code>  checkCode;
+  echo &quot;i now is $i&quot;;
+  sleep $step;
+</code></pre>
+<p>  done</p>
+</li>
+</ul>
+<p>3、创建自动任务（<code>Crontab</code>）</p>
+<blockquote>
+<p>执行前务必手动跑跑脚本，不然出问题脚本在后台无限跑要找出来杀掉挺麻烦</p>
+</blockquote>
+<ul>
+<li><p>打开 <code>Terminal</code></p>
+<pre><code>  crontab -e
+</code></pre>
+</li>
+<li><p>设置定时任务（每分钟跑一次）</p>
+<pre><code>  */1 * * * * sh /Users/Bokun/shells/autoCopyCode.sh &gt;&gt; /Users/Bokun/cronlog/autoCopyCode.log 2&gt;&amp;1
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>确认好自己文件的位置，出问题可以去看后半段的 log</p>
+</blockquote>
+<h2 id="大功告成，后面收到短信验证码直接-command-v-就可以粘贴了，各种参数可以自己调整。"><a href="#大功告成，后面收到短信验证码直接-command-v-就可以粘贴了，各种参数可以自己调整。" class="headerlink" title="大功告成，后面收到短信验证码直接 command + v 就可以粘贴了，各种参数可以自己调整。"></a>大功告成，后面收到短信验证码直接 <code>command + v</code> 就可以粘贴了，各种参数可以自己调整。</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mac/" rel="tag"># mac</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
+              <a href="/tags/crontab/" rel="tag"># crontab</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/04/06/webpack-%E9%85%8D%E7%BD%AE%E5%88%9D%E6%8E%A2/" rel="prev" title="webpack 配置初探">
+                  <i class="fa fa-chevron-left"></i> webpack 配置初探
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokun</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
